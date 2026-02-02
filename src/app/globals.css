@@ -125,4 +125,13 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Override default cursors when body has cursor: none (set by CustomCursor) */
+  body[style*="cursor: none"] a,
+  body[style*="cursor: none"] button,
+  body[style*="cursor: none"] [role="button"],
+  body[style*="cursor: none"] input,
+  body[style*="cursor: none"] textarea {
+    cursor: none !important;
+  }
 }

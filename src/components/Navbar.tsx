@@ -1,14 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ShoppingBag, Menu } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/shop", label: "Shop" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
 export default function Navbar() {
+  const pathname = usePathname();
   const { setIsCartOpen, totalItems } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
   return (
     <nav className="sticky top-0 z-30 w-full border-b border-border bg-background/80 backdrop-blur-md">
@@ -24,31 +34,43 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link
-            href="/"
-            className="text-sm font-medium hover:text-primary transition-colors"
-          >
-            Home
-          </Link>
-          <Link
-            href="/shop"
-            className="text-sm font-medium hover:text-primary transition-colors"
-          >
-            Shop
-          </Link>
-          <Link
-            href="/about"
-            className="text-sm font-medium hover:text-primary transition-colors"
-          >
-            About
-          </Link>
-          <Link
-            href="/contact"
-            className="text-sm font-medium hover:text-primary transition-colors"
-          >
-            Contact
-          </Link>
+        <div className="hidden md:flex items-center gap-2">
+          {NAV_LINKS.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="relative px-4 py-2 text-sm font-medium transition-colors"
+                onMouseEnter={() => setHoveredPath(link.href)}
+                onMouseLeave={() => setHoveredPath(null)}
+              >
+                {/* Active Indicator */}
+                {isActive && (
+                  <motion.span
+                    layoutId="navbar-active"
+                    className="absolute inset-0 bg-primary/10 rounded-full -z-10"
+                    transition={{ type: "spring", duration: 0.6 }}
+                  />
+                )}
+                {/* Hover Indicator */}
+                {hoveredPath === link.href && !isActive && (
+                  <motion.span
+                    layoutId="navbar-hover"
+                    className="absolute inset-0 bg-secondary/50 rounded-full -z-10"
+                    transition={{ type: "spring", duration: 0.4 }}
+                  />
+                )}
+                <span
+                  className={
+                    isActive ? "text-primary font-bold" : "text-muted-foreground"
+                  }
+                >
+                  {link.label}
+                </span>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Actions */}
@@ -87,35 +109,24 @@ export default function Navbar() {
           exit={{ opacity: 0, height: 0 }}
           className="md:hidden border-t border-border bg-background"
         >
-          <div className="flex flex-col p-4 space-y-4">
-            <Link
-              href="/"
-              className="text-sm font-medium hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              href="/shop"
-              className="text-sm font-medium hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Shop
-            </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm font-medium hover:text-primary transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Contact
-            </Link>
+          <div className="flex flex-col p-4 space-y-2">
+            {NAV_LINKS.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium px-4 py-3 rounded-lg transition-colors ${
+                    isActive
+                      ? "bg-primary/10 text-primary"
+                      : "hover:bg-secondary text-muted-foreground"
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </motion.div>
       )}
