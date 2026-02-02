@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import CartSidebar from "@/components/CartSidebar";
 import CustomCursor from "@/components/CustomCursor";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -28,10 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased">
-        <CustomCursor />
-        <Navbar />
-        <CartSidebar />
-        {children}
+        <ReactQueryProvider>
+          <CustomCursor />
+          <Navbar />
+          <CartSidebar />
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );

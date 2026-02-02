@@ -1,29 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const TEAM_MEMBERS = [
-  {
-    name: "Alex Morgan",
-    role: "Founder & Creative Director",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
-  },
-  {
-    name: "Sarah Chen",
-    role: "Head of Sustainability",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop",
-  },
-  {
-    name: "Marcus Johnson",
-    role: "Lead Designer",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1000&auto=format&fit=crop",
-  },
-  {
-    name: "Emily Davis",
-    role: "Marketing Director",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1000&auto=format&fit=crop",
-  },
-];
+import { TEAM_MEMBERS } from "@/constants/about";
 
 export default function Team() {
   return (
@@ -40,8 +18,8 @@ export default function Team() {
             Meet the Visionaries
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            The diverse group of creative minds working together to change the
-            fashion industry.
+            The diverse group of creative minds working together to change the fashion
+            industry.
           </p>
         </motion.div>
 
@@ -64,9 +42,7 @@ export default function Team() {
                 />
               </div>
               <h3 className="text-xl font-bold">{member.name}</h3>
-              <p className="text-sm text-primary font-medium mt-1">
-                {member.role}
-              </p>
+              <p className="text-sm text-primary font-medium mt-1">{member.role}</p>
             </motion.div>
           ))}
         </div>
