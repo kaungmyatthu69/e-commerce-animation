@@ -60,10 +60,6 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
     baseX.set(baseX.get() + moveBy);
   });
 
-  /**
-   * The number of times to repeat the child text should be dynamic based on
-   * screen size, but for simplicity we hardcode it here.
-   */
   return (
     <div className="parallax overflow-hidden tracking-tighter m-0 whitespace-nowrap flex flex-nowrap">
       <motion.div

@@ -25,7 +25,6 @@ export default function ParallaxSection({
   // Scale starts at 0.9 and goes to 1 as it scrolls into full view
   const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
 
-  // Fade in smoothly
   const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   return (

@@ -23,6 +23,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.dribbble.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.pinimg.com",
+      },
+      {
+        protocol: "https",
+        hostname: "placeimg.com",
+      },
+      {
+        protocol: "https",
+        hostname: "pravatar.cc",
+      },
     ],
   },
 };

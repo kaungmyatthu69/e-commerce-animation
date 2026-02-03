@@ -108,15 +108,7 @@ src/
 
 ---
 
-## 🧪 Testing (Recommended)
 
-*Current status: To Be Implemented*
-
-For future development, we recommend adding:
-- **Vitest** for Unit testing utility functions and Stores.
-- **Playwright** for End-to-End testing of critical flows (Checkout, Login).
-
----
 
 ## 📄 License
 

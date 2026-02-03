@@ -14,20 +14,45 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-6"
         >
-          <span className="px-4 py-1.5 text-sm font-medium rounded-full bg-secondary text-secondary-foreground border border-border">
+          <motion.span
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-secondary text-secondary-foreground border border-border"
+          >
             New Collection 2025
-          </span>
+          </motion.span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
-        >
-          Elevate Your Style <br />
-          <span className="text-muted-foreground">with Timeless Essentials</span>
-        </motion.h1>
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+          {Array.from("Elevate Your Style").map((char, index) => (
+            <motion.span
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 1, 0] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                delay: index * 0.1,
+                ease: "easeInOut",
+              }}
+            >
+              {char}
+            </motion.span>
+          ))}
+          <br />
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-muted-foreground"
+          >
+            with Timeless Essentials
+          </motion.span>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -35,7 +60,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10"
         >
-          Discover our handpicked selection of premium clothing and accessories designed for the modern lifestyle.
+          Discover our handpicked selection of premium clothing and accessories
+          designed for the modern lifestyle.
         </motion.p>
 
         <motion.div

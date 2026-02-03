@@ -23,7 +23,8 @@ export const CATEGORIES = [
     itemCount: "45+ Items",
     color: "bg-purple-100 dark:bg-purple-900/20",
     cols: "md:col-span-1",
-    image: "https://i.pinimg.com/736x/8f/84/de/8f84deea281b1c22e9e6c9cefd18ae85.jpg",
+    image:
+      "https://images.unsplash.com/photo-1569388330292-79cc1ec67270?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 4,

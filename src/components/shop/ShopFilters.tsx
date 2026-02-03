@@ -7,7 +7,7 @@ import type { FilterState, SortOption } from "@/types/shop";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
-// Re-export types for consumers (like ShopPage)
+
 export type { FilterState, SortOption };
 
 interface ShopFiltersProps {
@@ -79,7 +79,7 @@ export default function ShopFilters({
             placeholder="Search products..."
             value={localSearch}
             onChange={handleSearchChange}
-            className="w-full pl-9 pr-4 py-2 rounded-lg border border-border bg-background focus:ring-2 focus:ring-primary/20 outline-none"
+            className="w-full pl-9 pr-4 py-2 rounded-lg border border-border bg-background focus:ring- focus:ring-primary/20 outline-none"
           />
         </div>
         <button

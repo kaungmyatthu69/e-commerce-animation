@@ -20,8 +20,9 @@ export default function CustomCursor() {
     const isFinePointer = window.matchMedia("(pointer: fine)").matches;
     if (!isFinePointer) return;
 
-    setIsVisible(true);
     document.body.style.cursor = "none";
+    // Defer state update to avoid synchronous set state warning
+    const timer = setTimeout(() => setIsVisible(true), 0);
 
     const moveCursor = (e: MouseEvent) => {
       // Offset by half the base size (20px / 2 = 10px) to center it
@@ -51,6 +52,7 @@ export default function CustomCursor() {
     window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);
       document.body.style.cursor = "auto";
