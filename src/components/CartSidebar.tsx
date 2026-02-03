@@ -3,13 +3,18 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Plus, Minus, Trash2, ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import { useCart } from "@/hooks/useCart";
+import { useCartStore } from "@/store/cartStore";
 
 import { useEffect } from "react";
 
 export default function CartSidebar() {
-  const { isCartOpen, setIsCartOpen, items, updateQuantity, removeItem, totalPrice } =
-    useCart();
+  const { isCartOpen, setIsCartOpen, items, updateQuantity, removeItem } =
+    useCartStore();
+
+  const totalPrice = items.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0,
+  );
 
   // Disable body scroll when cart is open
   useEffect(() => {

@@ -2,20 +2,9 @@
 
 import { motion } from "framer-motion";
 
-const TRENDING_ITEMS = [
-  "New Arrivals",
-  "•",
-  "Best Sellers",
-  "•",
-  "Limited Edition",
-  "•",
-  "Free Shipping",
-  "•",
-  "Summer Collection",
-  "•",
-  "Premium Quality",
-  "•",
-];
+import { TRENDING_ITEMS } from "@/constants/trending";
+
+
 
 export default function Trending() {
   return (

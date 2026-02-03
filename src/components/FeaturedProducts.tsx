@@ -2,39 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Plus } from "lucide-react";
-import { useCart } from "@/hooks/useCart";
-
-const FEATURED_PRODUCTS = [
-  {
-    id: 1,
-    name: "Minimalist Tee",
-    price: "$35",
-    category: "Apparel",
-    color: "bg-stone-200 dark:bg-stone-800",
-  },
-  {
-    id: 2,
-    name: "Canvas Tote",
-    price: "$45",
-    category: "Accessories",
-    color: "bg-neutral-200 dark:bg-neutral-800",
-  },
-  {
-    id: 3,
-    name: "Urban Cap",
-    price: "$25",
-    category: "Headwear",
-    color: "bg-zinc-200 dark:bg-zinc-800",
-  },
-  {
-    id: 4,
-    name: "Slim Wallet",
-    price: "$60",
-    category: "Accessories",
-    color: "bg-slate-200 dark:bg-slate-800",
-  },
-];
+import { useCartStore } from "@/store/cartStore";
+import { FEATURED_PRODUCTS } from "@/constants/products";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -58,7 +29,7 @@ const itemVariants = {
 };
 
 export default function FeaturedProducts() {
-  const { addItem } = useCart();
+  const addItem = useCartStore((state) => state.addItem);
 
   return (
     <section className="py-24 bg-background">
@@ -98,10 +69,14 @@ export default function FeaturedProducts() {
               <div
                 className={`aspect-[3/4] rounded-xl mb-4 overflow-hidden relative ${product.color}`}
               >
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
                 <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/50 text-2xl font-bold opacity-30">
-                  {product.name.charAt(0)}
-                </div>
 
                 <button
                   onClick={(e) => {
@@ -111,6 +86,7 @@ export default function FeaturedProducts() {
                       name: product.name,
                       price: parseFloat(product.price.replace("$", "")),
                       category: product.category,
+                      image: product.image,
                     });
                   }}
                   className="absolute bottom-4 right-4 w-10 h-10 bg-white dark:bg-zinc-800 rounded-full flex items-center justify-center shadow-lg opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:scale-110"

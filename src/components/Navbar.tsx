@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingBag, Menu } from "lucide-react";
-import { useCart } from "@/hooks/useCart";
+import { ShoppingBag, Menu, LogOut, User } from "lucide-react";
+import { useCartStore } from "@/store/cartStore";
+import { useAuthStore } from "@/store/authStore";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -16,7 +17,11 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { setIsCartOpen, totalItems } = useCart();
+  const setIsCartOpen = useCartStore((state) => state.setIsCartOpen);
+  const items = useCartStore((state) => state.items);
+  const totalItems = items.reduce((total, item) => total + item.quantity, 0);
+
+  const { isAuthenticated, user, logout } = useAuthStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
@@ -75,6 +80,27 @@ export default function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
+          {isAuthenticated ? (
+            <div className="hidden md:flex items-center gap-3">
+              <span className="text-sm font-medium">{user?.name}</span>
+              <button
+                onClick={() => logout()}
+                className="p-2 hover:bg-secondary rounded-full transition-colors"
+                title="Logout"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="hidden md:flex p-2 hover:bg-secondary rounded-full transition-colors"
+              title="Login"
+            >
+              <User className="w-5 h-5" />
+            </Link>
+          )}
+
           <button
             onClick={() => setIsCartOpen(true)}
             className="relative p-2 hover:bg-secondary rounded-full transition-colors group"
@@ -127,6 +153,26 @@ export default function Navbar() {
                 </Link>
               );
             })}
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  logout();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="text-sm font-medium px-4 py-3 rounded-lg hover:bg-secondary text-muted-foreground text-left flex items-center gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Logout
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="text-sm font-medium px-4 py-3 rounded-lg hover:bg-secondary text-muted-foreground"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Login
+              </Link>
+            )}
           </div>
         </motion.div>
       )}

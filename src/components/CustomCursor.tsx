@@ -67,7 +67,7 @@ export default function CustomCursor() {
         y: cursorY,
       }}
       animate={{
-        scale: isHovered ? 4 : 1,
+        scale: isHovered ? 3 : 1,
       }}
       transition={{
         scale: { type: "spring", stiffness: 300, damping: 20 },

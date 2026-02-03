@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { TEAM_MEMBERS } from "@/constants/about";
 
 export default function Team() {
@@ -34,11 +35,12 @@ export default function Team() {
               className="group text-center"
             >
               <div className="aspect-[4/5] overflow-hidden rounded-xl mb-4 bg-muted relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
                 />
               </div>
               <h3 className="text-xl font-bold">{member.name}</h3>
